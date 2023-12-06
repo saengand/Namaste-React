@@ -1,0 +1,20 @@
+Inception
+created index.html
+    displayed Hello World using html
+    displayed Hello World using js
+    added cdn react src
+    what is the CDN?
+    what is the crossorigin
+    //30:47
+
+Part: 02
+<script>
+            const heading = React.createElement("h1",{},"Hello World from React!");
+            const root = ReactDOM.createRoot(document.getElementById("root"));
+            root.render(heading);
+        </script>
+
+Part:03
+
+
+
