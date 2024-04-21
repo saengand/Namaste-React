@@ -1,0 +1,18 @@
+//JSX (transpiled before it reaches the JS ) - PPARCEL - Babel
+
+//JSX -- React.createElement -- ReactElement -- JS Object -- HTMLElement(render)
+
+//Babel is transpiler     jsx to react code javascript node libraray
+
+//parcel is manaager of babel
+
+//55:59
+
+//single line jsx 
+
+
+// browser 
+// root .browerser 
+
+// component composition 
+

@@ -1,0 +1,77 @@
+Header 
+    logo
+    Nav Items
+Body 
+    Search
+    RestaurantContainer
+        RestaurantCard
+            Img
+            Name of rstocard, star rating, cuisine, delivery time 
+Footer
+    Copyright
+    Links
+    Address
+    Contact
+
+props are just normal arguments to our functions 
+when we pass this arguments means props, then react rap it inside an object and pass as props 
+when we want to pass dynamically some data to a component you pass as props
+
+Destructuring of props 
+    its concept of javascript not react
+    
+    const RestaurantCard = ({restName, cuisine}) =>{}
+            ...............
+    const RestaurantCard = (props) => {}
+    //console.log(props);
+    const {restName, cuisine} = props; 
+
+lets got to swiggy.com -- dev tool -- network tab
+https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9780919&lng=77.63785589999999&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING 
+
+->data
+-> install jason.server extenstion
+
+v5?lat=12.9....
+left click on it -- 
+
+1:15:53 what swiggy is using -- conflict driven ui
+it will ask in system design interview
+
+when we open swiggy app -- some offers are available in bangalore location
+suppose there are some other offers in kolkata, delhi, mumbai
+so the cards/carousel will be different as per location
+how can we build the ui like that 
+shall we develop different website for delhi, banglore, mumbai?..No.
+are websites driven by data - this is known as conflict driven UI
+conflicts driven ui means controlling your ui, how the ui looks like using data, using conflicts
+where that conflicts come from-- that conflicts come from backend
+
+this conflict driven ui is the lates practice which is using in every company
+
+so the api -- data which we have here --  
+v5?lat=12.9....
+left click on it -- 
+ 
+so we can see carousel which can be different for mumbai, delhi, bangalore...
+if there is no carousel then ui will never show this
+
+so according the data which is coming from the backend my ui is going to change
+this is know as conflict driven ui
+
+working with paytm, uber we can see this conflict driven ui
+
+1:33:41 -- array join -- <h3>{resData.info.cuisines.join(", ")}</h3>
+
+1:35:00 finding image -- cloudinaryImageId -- CDN url + cloudinaryImageId
+
+1:42:13 -- resObj -- resList -- created array of object of resto cards
+
+1:52:06 -- resList is an array -- we are calling in map functionality
+
+1:59:44 -- unique key, why?
+        -- when we are adding any new item/resto card -- because of unique key, react will only render that particular newly added card -- or else it will re-render all cards which is not good
+
+2:07:06 index -- 2nd property of map -- but its basd practice as per react doc
+index as key is an anti-pattern
+

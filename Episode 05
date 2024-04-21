@@ -1,0 +1,367 @@
+everything will do in html,css,javascript
+which we can do in reactjs
+
+then what/why react?
+
+the beauty of using framework/libraries is that
+it makes developer experience easy
+
+it makes you write less code and do more on the webpage
+
+Eposide 05 - part 01 -- we are learning react hook
+
+before that we are clean our app
+
+created src folder and 
+source code our app in the src folder 
+moved App.js into src folder 
+
+change the path inside index.html
+
+exports :   1) default export
+            2) named export
+
+            when in a single file we have to export multiple things 
+
+            but with default export we can use it single time
+
+            by default, a file can only export 1 thing
+
+            suppose we have to export multiple things, then we use named export
+
+            so we can write export infornt of variable or constants
+
+imports:    named exports imported like -- 
+            import {CDN_LINK} from "";
+...48.45
+
+Part 02 
+
+we are make out website interactive 
+by adding some features to it
+
+        we are going to create a feature 
+        create a button over here
+        onclick of the button -- we will get top rated restaurant
+        top rated restaurant -- having rating greater than 4 stars
+    
+    need to implement event handler
+
+    go to body component -- Body.js
+    at the place of search -- make it as button with class name filter
+  
+    we have used callback function onClick on button 
+
+now change onClick to onMouseOver
+
+
+
+
+1:06:37
+created listOfRestaurants -- array of objects
+
+1:02:26
+we are having 2 layers in ui -- ui layer and data layer
+UI layer will display what will send by Data layer
+
+in my data layer, we are having 2 objects 
+ui will display 2 cards
+
+now suppose, we somehow my listofrestaurant modifies to 1 restaurant , my listofRestaurant filter to 1 restaurant
+
+what will happen?
+then ui will automatically show 1 restaurant right?
+
+commented moMouseOver inside button
+writing onClick2 again with filter logic 
+so logic is res.info.avgRating > 4 
+
+
+59:24 -- after clicking on -- top rated drestaurants -- we got an error -- Assignment to an constant variable , so change const to let -- so now its 
+let listOfRestaurants
+
+after this we can click again top rated restaurants button
+we can see on console, we are getting restaurants which is having avgRating > 4 but not on UI
+
+lets create 1 more restaurants, now after clicking top rated restaurants, we will get 2 restaurants on console only
+
+but the UI is not updated
+how do i update my ui?
+
+so don't you think my listofRestaurants chagnes then it should have automatically changed in ?
+over here my listofRestaurant(filter) changes so automatically this should have changed in listofRestaurant(map)
+
+so on ui if it done automatically then how cool it would be correct? instead of writing logic?
+
+this is the super power which react has.
+when we say react is fast, react is fast in dom manipulation
+react is efficient in dom manipulation
+this is exact problem that react is solving 
+
+suppose if you have to keep your data and UI layer consistent or bind or tied to each other 
+that where React comes into picture 
+or all the other frameworks angular, vue, react trying to solve this - that UI layer and data layers are work 
+with each other 
+
+if my data changes then UI layer also changes
+so this is the thing which all this frameworks are tryign to solve, updating the DOM efficiency 
+
+You know why react is fast?
+    because it can do faster DOM manipulation
+    it can do efficent DOM manupulation
+
+there is something known as Virtual DOM, 
+there is something known as deep algorithm
+there is somehting know as reconsiliation
+
+55:11 we will talk about all this later 
+
+but first up all the problem which we are facing now 
+we can see the update is happening in data layer but not reflecting same in UI layer 
+
+after clicking on top rated restaurants button we can get updated UI, which we are not getting right now
+
+my UI is tied to listOfRestaurants so, automatically it should change 
+
+to do this, react give a super power 
+right now the listOfRestauarants is normal javascript let variable
+
+but if we give super powers of react to listofRestaurant, it will became a super energetic react variable 
+
+now I want to create a super powerful react variable.
+how do we created a super powerful react variable
+
+we can called it as state variable in react
+so basically it is like a state of variable
+state is keyword its lingo in react
+its a ssuper powerful variable
+
+so for that we used hooks
+
+react element - its plane js object
+similarly a react hook - its also normal js function
+this react hook function will come with some super powerful function
+
+that function has written some background logic behind this
+
+who wrote this logic - its written by react developer inside node-modules -  react folder
+we did npm install react -- so all this utilities functions fot installed
+
+how do I use it?
+
+1) useState - its a utitlity superpower state variable in react
+we have to import hook from react
+import useState from 'react';
+
+we have to import like named import 
+means 
+import {useState} from 'react'
+2) useEffect - 
+
+why we called it as state variable
+because it maintain the state of variable
+it maintain state of your component
+
+so we are saying it as local state variable 
+it scope is inside the component
+
+so now how can we write it?
+const [listOfRestaurants] = useState();
+
+commented below listOfRestaurants because name is same.
+
+now listOfRestaurants which is inside const is super powerful react variable
+
+we have created listOfRestaurants(above) which is same as the listOfRestaurants(below)
+
+normal js variable: 
+    let listOfRestaurants 
+react state variable:
+    const [listOfRestaurants] = useState();
+
+so initially for normal js variable, we are assignning empty array like
+let listOfRestaurants = [];
+
+similar in case of react state variable, with empty array like
+const [listOfRestaurants] = useState([]);
+
+if we want to pass default value as null instead of empty array
+so we can write like
+let listOfRestaurants = null;
+and 
+const [listOfRestaurants] = useState([]);
+
+suppose we want to give default as 1 restaurant then
+const [listOfRestaurants] = useState([{
+    info:{
+        .....
+        .....
+    }
+}])
+
+so this is how we pass default values to react variable using useState hook
+
+we have changed listOfRestaurants(below) to
+listOfRestaurantsJS 
+
+written the info of 1 card inside useState([{
+    info:{
+        '''''
+    }
+}])
+
+so we can see 1 card is appearing on UI
+so it working same as previous listOfRestaurantsJS(below)
+
+now we have written remaining all
+40:14-----
+so useState is giving the listOfRestaurants like this 
+make sure to add listOfRestaurants inside an arraay
+const [listOfRestaurants]
+and I can use listOfRestaurants here-- using map
+means we are getting all 3 cards on ui
+
+Q)but how to modify the listOfRestaurants
+-> by a function -- so here we are having setListOfRestaurants 
+
+const [listOfRestaurants , setlistOfRestaurants] = useState([{
+
+}])
+
+so setlistOfRestaurants is for the update a list
+now suppose if we click on the top Rated Restaurants button, then I want to update my listOfRestaurants
+
+so we can not to update equally like this 
+onClick={()=>{
+                listOfRestaurants = listOfRestaurants.filter(
+                  (res) => res.info.avgRating > 4
+                )
+
+this is not a proper way to update a state variable
+so how do I update my state variable is? I will call setlistOfRestaurants() and pass new data and push inside it
+
+let me just make it empty as of now - commented the listOfRestaurants filter part
+
+so now I have to pass this filte part inside the setlistOfRestaurants()
+
+once again recap
+36.07----
+you can create a normal variable like this 
+let list = [];
+this is empty list
+we can update using 
+list = ["abc"]
+or list.push("avc");
+but in this super powerful react variable listOfRestaurants
+whenever we need to update listOfRestaurants
+first up of all we need to create like this 
+const [listOfRestaurants,setlistOfRestaurants] = useState([{}]);
+giving some default value inside useState();
+suppose i want to update the value of listOfRestaurants
+we cant modify directly using ==
+so we have used setlistOfRestaurants() method to update
+
+suppose we have to make our listOfRestaurants as empty
+so we can de setlistOfRestaurants([]);
+so our listOfRestaurants will be now empty
+
+now we are passing the filteredList inside the setlistOfRestaurants(filteredList)
+
+now we can check our UI
+so we can see 3 restourants
+because we are passing all 3 restaurants as default inside useState so thats why we can see all 3
+
+now we will click - top rated restaurants 
+so will get updated UI with 2 restaurants
+so our got filtered automatically
+
+so this super powerful variable sync the data layer and ui layer
+
+so as soon as my listOfRestaurants changes, it will automatically refresh our component
+and this is known as Render
+
+whenever a state variable updates , react re renders the components 
+whenerver a state variable changes, react re renders the components 
+
+what is mean by re renders?
+if i am clicking on the top rated restaurants button , i am changing the state variable and the react is re rendering the components 
+
+basically what it is doing is 
+
+whenever setlistOfRestaurants() is get called, react remove the body component and update it properly
+
+now we can use mockData here 
+we have imported resList  from mockData.js
+now we will pass this mock reslist inside useState as default value 
+
+so as soon as my state variable updates, 
+react will re render my components 
+
+react will do this all in very optimize way, with very less code and 
+
+so when we say react is super fast 
+so react will do this dom operation super fast and effeiecently
+
+how react is doing this all?
+ when we click the butoon top rated restaurant
+ automagically it got render
+ how the react work with data and ui layer 
+
+1:45:14 so lest go----- 
+let me explain teh react alogorithm, 
+Reconciliation Algorithm
+this algo is also known as React Fiber
+
+on the UI, we have a DOM 
+DOM is like a tree 
+tags are like a tree 
+suppose this is res container 
+this res container having 15 restaurants cards
+so now what will happen is
+now suppose my ui changes to fultering the 7 cards to 3 cards 
+so first react will create Virtual DOM object
+what is the virtual dom?
+virtual dom is not a actual dom
+what is the actual dom?
+actual dom are tages 
+suppose we have <div><div></div></div> this is actual dom
+virtual dom is the represention of actual dom
+so this virtual dom basically an noraml js object
+whatever we are code we have written inside body component in return section
+it will be store/read as object
+
+if we will do console to body tag to inside App.js 
+on consoel we will get the boject of body taag
+so this is the virtual dom
+
+virtual dom is the nested object
+
+Deep Algorithm
+it finds out the difference between 2 virtual dom , updated vdom and previous dom
+
+suppose i have a resto container 
+this resto container has 7 resto cards
+afte clicking on the top rated button we got fillterd data with 3 resto cards 
+
+so deep algo finds out the difference between previous vdom and update vdom
+so difference is here for 4 node
+so deep algo calculates this diffence and it will update the actual dom
+on every render cycle 
+
+so lets revise again
+
+this react fiber came in react 16
+search for the same React Fiber Architecture, Reconciliation
+
+const [listOfRestaurants,setlistOfRestaurants] = useState();
+
+this about const [] is basically array destructuring 
+
+we can write it as 
+const arr = useState(resList);
+const [listOfRestaurants,setlistOfRestaurants] = arr;
+
+const listOfRestaurants = arr[0];
+const setlistOfRestaurants = arr[1];
+
+so we are just destructuring above 

@@ -1,0 +1,571 @@
+Episode :-06 Exploring World
+
+We are going to explore the world of react js app
+and world outside of our app
+
+Ep:06 | Part : 01
+before starting i want to explain the few concepts 
+
+first up of all I am going to start with monolith and microservice arhiteture
+
+what is the Monolith:
+traditionally when apps/web apps were developed
+they all were developed in monolith architecture
+
+so earlier, we used to have a huge big project and suppose we are builting an application , so we are having small peceice of code 
+
+so that project itself has API folder where API written, we have developed API inside this project
+
+also we have UI code inside the same project 
+
+also we have authentication code inside the same project 
+
+also we have database connectivity inside the same project 
+
+we can have notifications, sms code inside the project 
+    
+Ex we were working on java prject, we were having backend, api, frontend, authentication written, connection to db written etc..so all the code was in the same service 
+
+and this whole project, so if we want to make any single change like color of button so we have to build the whole project, we have to complite to whole project, deply to whole project
+
+big bulky project 
+so this was know as monolithic architecture 
+
+so now todays time world is moving towards the micro services architectue 
+all the big companies prefering to make microservicd s 
+
+Q what is the microservice architecure 
+
+    in the microservice architeure, we are having different sevices for different jobs 
+    we are having service which is like a backend service 
+    we are having UI service 
+    we are having authenticaton service 
+    we are having service which connects to DB
+    we are having service for sms sending 
+    we are having service for email notification
+    so there are different services and this all mircroserives, small services and all this service combine together forms a big app
+
+while working with UBER, they are following microservice architecture 
+all this small application, we had lots of microservices are there in uber 
+all this microservices talk to each other depending upon the use cases 
+we have separate UI project, backend project, notification project, db
+for an each every thing we are having different project 
+and this is know as "seperation of concerns"
+and it follows a "Single resposibility principle"
+where each and every service has its own job
+not body interfering with it
+and you know what 
+
+while working with monolithic architural project, all developers are working on same git repository
+but beacause of microservice architechutural project, all of the teams working on there own independent sevice, everything became separate  
+
+Q) one more things is how do this all services interact with each other ?
+to make the whole application work
+UI needs to talk to backend to fetch the data and show it on UI
+backend service need to talk with db, authentication,
+there are different types of connections 
+so what I am trying to say that all services are trying to talk to each other 
+
+so now how are this services deployed and how can we access this all services?
+
+Ex we had our ui service , over here in this microservice architeure 
+where does our project come?
+we are building the React project .. in which microservice it will come?
+you can assume that our react project which we are developing is come under UI microservice 
+so in our project ui microservice is written in react
+one more advantage of microservice is that you can have different tech stack for different things 
+
+suppose in monolith we are developing java application, so we are developing everyhting in java
+
+but in the microservice architeure, UI written in react, backend written java, you have an database written in python
+sms service written in golang 
+
+but how this service are connected?
+so as our project is deployed on port : 1234
+similarly all the above mentioned services run on the own specific ports
+port: 1234 we are having our UI service 
+port:1000 we can have a backend service 
+prot : 3000 we can have sms service
+so on different ports we are having different services 
+and end of the day all this ports mapped to domain name
+suppose the backed end port map to /api
+all this apis are deployed to same url
+similary sms port mapped on /sms
+how do this service interact?
+they make call to different urls 
+suppose if ui wants to connect to backend they make a call  to /api
+
+00:13:09----
+Namaste React | Ep: 06 | Part: 02
+so now here is our code, we had the body component
+over here we were rendering the  listOfRestaurants.map(()=>(...))
+this listOfRestaurants coming from resList 
+we saw that how this state variable using useState(); in last episode 
+and we have populated resList 
+resList is coming from mockData
+and this mockData had dummy data
+and this dummy data comming from swiggy website 
+we had this swiggy api
+go to swiggy.com --- inspect it 
+
+so here we are trying to fetch the data dynamically
+from api and populate our page dynamically
+
+so lets now see how can make the api call inside react 
+
+when to make an api call?
+suppose are app loads, as  soon as app loads, call the api to fetch the data
+and once we get tge data then render it on UI
+Approach I) APP Loads --> API --> Render
+                         500ms   
+first as soon as page loads, we can make an api call, wait for data to come then we render the UI
+
+suppose if this api call takes 500 ms, so what will happened , the page will load , our page will wait for 500 ms and after that it will render the UI
+
+so, when we open the web page , you suddenly don't see anything and suddenly as soon as api responds it quickly shows lot of stuff on the screen so this the approach one I
+
+Approach II) 
+APP Loads --> Render UI --> API call --> re-render
+
+second approach is as soon as the page loads, what will happen is we will just render our UI
+after we have quickly rendered now will make an api call
+and as soon as the get the result back from the api 
+we will now populate, we will now re-render our application with new data
+
+In react we will always be using second approach
+and let me tll you why we will be usig second approach?
+and why this second appraoach is better
+
+this is better appraoch and this give an better UX
+how?
+beacause in the first approach, till the 500 ms, we are pages like frozen
+we dont see anything on to page and after 500 ms we suddenly see everything 
+but thats a poor UI, poor user experience 
+instead of this 
+in second approach we loads the page and render whatever we can , render the skeleton and then slowly the website loads
+it better user experience 
+and the user dont see lots of lag and all that random stuff 
+
+in sencond approach we are rendering 2 times but dosent matter
+
+so react is very popular is beacuse its render cycles are very fast
+react has one of the best render mechanism 
+
+......................................................
+Namaste React Ep:06 | Part:03 | 0:20:48
+we saw the second approach
+we are trying to implement that in our code 
+
+useEffect hook
+
+what is the hook - its nothing but javascript function
+
+just like useState hook is for to craete state variable 
+useEffect also has its own purpose
+
+useEffect also imported as named import
+
+import {useEffect} from 'react;
+
+useEffect will take 2 arguments 
+1st argument is arrow function, this arrow function is callback function
+2nd argument is the dependency array
+
+useEffect(()=>{}, [])
+Q)when will this useEffect callback function get called?
+->useEffect callback funcion get called after component got rendered
+
+here body component rendered, as soon as render cycle is finised, it will just quickly call the useEffect callback function
+
+so on code Body component will render then useEffect will call, useEffect Called will be printed on console
+
+if we want to do some operation after the component renderign then we have to write that operation inside useEffect hook
+
+sources -- > debug it
+
+on Console we can see
+Body Rendered
+useEffect Called
+
+so useEffect is helpful to implement for 2nd appraoch
+APP Loads --> Render UI --> API call --> re-render
+                            useEffect 
+
+we have called a funciton fetchData() inside useEffect
+
+Q)how do we fetch the data
+--> we will use fetch, do you know what is the fetch()
+    fetch is given to us by browsers,
+    fetch() is the superpower which JS engine has
+    fetch() will fech data frim api
+    what api we wants to call?
+    we want to call swiggys api
+
+    fetch will return a promise 
+    how do we resolve a promise 
+     a) .then and catch which is traditional way
+     b) async and await
+
+but we are getting an error
+has been blocked by CORS policy
+
+so who is blocking us?
+ our browsers block us to call API from one origin to different origin
+ our browser that's chrome, is not allowing us to call 
+ Swiggy's API from localhost from one origin to anothe origin
+
+ if there origin mismatch, the browsers blocks that API call
+ thas a CORS policy
+
+ check with CORS video of Namaste Javascript
+
+ now check with CORS chorme extensiton
+ install and activate it
+ 1:44:
+
+now we wants to render new data which is coming from swiggys api
+
+we are following IInd approach
+app loaded then rendered the whatever data we are having
+then we called the swigys api and now again we need to re-render with new data
+
+as soon as we got the data after the api call
+we need to update listOfRestaurants and then react will re-render this component
+
+so to update listOfRestaurants, we will use state variable which is setlistOfRestaurants
+
+so we have updated the 
+setlistOfRestaurants(json.data.cards[1].card.card.gridElements.infoWithStyle.restaurants);
+
+so beacuse of this live data has been re-rendered 
+
+we can remove resList and delete mockData.js, if we want
+
+but it is not a good way to write a code
+json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants
+
+so we will use optional chainning
+//optional chaining
+json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+.......................................................
+
+00:48:49 | 1:33:
+Ep06 | Part:04
+now we have fetch the data,
+but though the component got rendered, in between we can see the blank page
+
+we can inspect and check the element
+body is empty but it has been rendered
+beacuse it was empty, thats why we don't see anything
+but still body was rendered and the page was rendered very fast
+
+so how we can improve the experience even more
+
+meanwhile the api is taking some time to load
+so how we can improve the experience
+so
+what we can do is either we can do one important thing
+so as soon as we load the page, I can show a spinning loader right?
+how we will show as spinning loader?
+
+I will write a condition that if my listOfRestaurants is empty
+suppose if we don't have any data,
+what should I do?
+
+instead of rendering this all, I will render a loading screen
+
+if(listOfRestaurants.length === 0){
+    return <h1>Loading...</h1>
+  }
+
+there is concept known as shimmer ui
+A shimmer UI is a kind of the user interface that mimics the shades and forms of content that will ultimately appear instead of having any actual content. 
+
+so the blank cards, dummy cards are shimmer ui
+youtube also uses the shimmer ui
+
+as soon as our app loads, it will render the shimmer ui
+
+how can we build our own shimmer UI?
+so instead of Loading, I wants my Shimmer UI
+
+to create own shimmer ui, create functionl component
+with file of shimmer.js
+...............................................
+
+01:02:15
+Ep07 | Part:05
+
+in last part we wrote the shimmer effect
+it will shows the fake cards instead of the actual restaurant cards 
+
+we wrote a condition for this 
+if(listOfRestaurants.length === 0){
+    // return <h1>Loading...</h1>
+    return <Shimmer/>
+  }
+
+if the listOfRestaurants is zero, API hasn't respondend us yet
+we have this shimmer effect 
+so basically doing rendering the component like this, having a condition rendering 
+
+so this concept is known as "Conditional Rendering"
+
+01:04:38
+if length of listOfRestaurants is equals to zero then we are returning <shimmer/>
+otherwise 
+it returning body
+<div className="body">
+      {/* <div className="serach">Search</div> */}
+      <div className="filter">
+        <button
+          className="filter-btn"
+          //onMouseOver={()=>{console.log("Button Clicked");}}
+          // onClick={()=>{console.log("Button Clicked");}}
+          onClick={() => {
+            // listOfRestaurants = listOfRestaurants.filter(
+            //   (res) => res.info.avgRating > 4
+            // )
+            const filteredList = listOfRestaurants.filter(
+              (res) => res.info.avgRating > 4
+            );
+            setlistOfRestaurants(filteredList);
+            console.log("listOfRestaurants", listOfRestaurants);
+          }}
+        >
+          Top Rated Restaurants
+        </button>
+      </div>
+      <div className="res-container">
+
+      so we can club all this code together 
+      how can we club all this code together 
+      instead of having if block outside the return(body main return)
+      we can write a single return and write a ternary operator
+      this is not react concept its just javascript 
+
+      how can we use ternary operator?
+
+return listOfRestaurants.length === 0 ? <Shimmer/> : (
+    <div className="body">
+      {/* <div className="serach">Search</div> */}
+      <div className="filter">
+        <button
+          className="filter-btn"
+
+
+Q)  why useState is using in react?
+to get more understanding on react, we will add some more features
+
+go to Header.js
+add button inside ul
+
+we are trying to implement login button and after clicking on login button, we will get logout 
+so we have declared let btnName = "Login" default at top
+we called btnName in jsx using {btnName},
+so on UI we can see button name with Login
+now,
+added onClick, trying to change btnName to Logout
+but we are not getting logout after clicking on login on ui
+1:14
+we have tested with console.log(btnName), we got logout on console
+but our ui is not updating, ui did't rendered
+so how btnName name will take the latest value?
+so in this cases javascript variable will not work,
+if we want to make our component dynamic,
+if we want something should change in our component
+we use local state variables
+here where useState local state variable comes into picture
+
+so lets use useState in header.js
+so we have created 
+const[btnNameReact]=useState("Login");
+now we need to update btnNameReact
+but how?  
+we can't directly modify btnNameReact inside onClick
+but
+we will have ti use 2nd parameter which will get from the useState()
+see here
+useState giving us the btnNameReact variable 
+and also gives us a function which will update this btnNameReact variable
+and that is 2nd arguments
+which is setbtnNameReact for us
+
+so we have to update btnNameReact using setbtnNameReact
+onClick={() => {
+              // btnName = "Logout";
+              setbtnNameReact("Logout");
+              console.log(btnName);
+            }}
+
+
+whenever this btnNameReact will be change using the setbtnNameReact, react will re-render the Header component
+react will kind of refresh the header component
+and all the updated values will be there
+
+it triggered the reconciliation
+go check in element section in dev tool
+we can see how quickly the login got changed as logout 
+
+so here what is happening 
+is it rendering the whole header or 
+just modifying that button
+
+it will re-render the while header component
+means it will not just modify the button
+
+jsut check with console.log("Header Render");
+so in intial render of header componet
+we can see "Header Render" on console
+after clicking on login button
+we can again get "Heder Render" on conosle
+
+means entire component got re-rendered again
+as soon as we clicked on the login button
+onClick get called 
+
+but while entire component got re-rendered, we can get new btnNameReact 
+so this beauty of react, react will keep track of everything
+so when we are getting new btnNameReact, so its getting with updated value
+everything automatically/automagcally works
+
+behind the scene what is happening?
+as soon as we called the setbtnNameReact, it will update the btnNameReact value 
+and render the header component once again
+it will find the div between the older version and the newer version
+and it will see that in that div only this button is getting updated, there is no chnage over <li>, no change in image
+
+we have added 
+btnNameReact === "Login"
+                ? setbtnNameReact("Logout")
+                : setbtnNameReact("Login");
+              console.log(btnNameReact);
+so react finds out the difference between the older version of vertual DOM of header
+and the new virtual DOM of header 
+and finds out that only button changed 
+so only button got updated
+so this is why react is fast
+this is why react is consider best in dom manipulation
+because it exactly knows what to change, so it changes only that button in our case
+
+so everytime Header is getting rendered but only that button code changed
+.............................................
+Ep. 06 | Part. 06 
+curiosity is important
+we are going to implement search button
+inside body.js
+so filter the ui and update the ui onclick of the search button filter 
+
+with input box important concept attached with it 
+if I click onClick of this button, I want to implement a filter the restaurants cards 
+and update the UI
+
+where I will get this search text form?
+I will need the search text over here 
+whatever is there in this input box to get the data from the input box 
+i need to take this value of this text
+and I have to bind in this input box to local state variable 
+
+to track the value of input box, whaterver the user is typing in to get that value 
+<input type="text" className="search-box" value={}/>
+I have to bind this value with local state variable of react
+I will create a one more state variable and i will bind that variable to my input box
+
+const [searchText,setSearchText] = useState("");
+
+so in jsx, I have given my value as search text
+<input type="text" className="search-box" value={searchText}/>
+
+but still inside search bar we are not able to type anything
+why so?
+we have bind the value with searchText over here 
+that means whatever is there inside the searchText variable will be there inside the value of this input box 
+
+now when I change the value of this input box,the value of input box still tied to this searchText 
+
+so my searchText is not getting updated, but I am trying to modify my input box 
+so beacuse this bind to this serachText and serachText is empty
+so input box will not change unless we change the searchText
+so that is why to fix this, what we will do?
+I will add onChange handler over here
+we will write onChange handler 
+
+as soon as my input changes, what will happen?
+my onChange function should also change/update my searchText
+
+this onChange function 
+<div className="search">
+          <input type="text" className="search-box" value={searchText} onChange={(e)=> setSearchText(e.target.value)}/>
+          <button
+            onClick={() => {
+              console.log(searchText);
+            }}
+          >
+            Search
+          </button>
+
+ so from above code, value is tied with searchText
+ so whenever we will type something whenever something changes inside this input box,
+ we wants to update my seachText
+        onChange={(e)=> setSearchText(e.target.value)}/>   
+so with setSearchText, we have updated 
+
+lets revise
+I will have to bind when I say bind my input box
+that means i have to give this value as searchText to a local variable of state with empty space
+now as soon as my input changes onChange,
+I want to update my serachText so that it updates 
+
+now if I click on serach button , we will get same input text on console.
+
+the whenever this searchText getting updated on evry key press, my component is getting re-rendered 
+the whole body component getting re-rendered 
+
+just check with conosle .log
+console.log("Body Rendered -- input text -- search button");
+
+so initially body got rendered and again it got re-rendered 
+why? beacause we made an API call and we are setListOfRestaurants 
+
+state react variable defination
+  whenever state variable update, react triggred a reconciliation cycle(re-rendered the component )
+
+again
+whenever we are typing anything inside input text
+its callig onChange method 
+this onChange method is taking an this target value 
+its just updating the state variable serachText
+and this body component is just refreshing 
+but best part in react is trckling the re-conciliation cycle 
+it is finding the difference between the old virtual dom and new virtual dom 
+
+what is virtual dom?
+  virtual dom is object represention of this jsx, actual dom, this will convert to virtual dom
+
+now its time to update my input box 
+what react is doing here, re-rendering the body component 
+
+react is re-rendering the whole body component but it only updating input box value inside the DOM
+
+DOM manipulation is very expensive and react is very efficient in doing this 
+
+React Fiber
+  it new reconsiliation process to like effeicently manipulate the DOM
+
+so vitual dom is not making react faster 
+this React fiber, the new reconciliation
+algorithm which finds out hte difference between two virtual dom and updates the DOM only when required and the portion of DOM
+which only that portion is required
+
+thats why react is fast
+
+now I want to write a filter logic and update the UI
+how will i update my ui?
+i will just update my listOfRestaurants 
+what will happen, as soon as i will update my listOfRestaurants 
+as soon as my state variable changes 
+read this again, wherever my state variable updates , react triggered the reconsiliation cycle and re-rendered the compoinent 
+
+so whenever my listOfRestaurants will change, my ui automatically get updated
+
+Ep:06 | Part 07

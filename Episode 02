@@ -1,0 +1,44 @@
+Episode 02 - Ignition our App
+
+git repo
+->created new repo -- click New Button -- Given name Namaste-React
+->git branch - m main
+->git add .
+->git commit -m "Episode-01"
+    ---> Author identify unknown
+->git remote add origin https://github.com/saengand/Namaste-React.git
+->git push origin main
+    ---> error: src refspec main does not match any
+         error: failed to push some refs https://github.com/saengand/Namaste-React.git
+         
+--> so we solved above errors
+    error 1 : Author identify unknown
+    solution :  git config --global user.email "satyamit01@gmail.com"
+                git config --global user.name "Satyam"
+
+    error 2 :   src refspec main does not match any5
+                git add .
+                git commit -m "First Commit"
+                git push origin main
+                
+npm -   is not having any fullform
+        its package mangaer
+
+23.45
+package.json  - 
+                What is the package.json?
+                    -basically configuration of our npm
+                why?
+
+
+31.53
+dependency  -   
+                there are 2 type of dependencies
+                1. dev dependencies
+                2. normal dependencies
+                npm install -D parcel
+                
+46.8
+package.jason - is a configuration for our npm
+node module - is kind of database -- having dependency
+
